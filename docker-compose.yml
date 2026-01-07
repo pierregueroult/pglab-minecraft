@@ -1,0 +1,52 @@
+services:
+  minecraft-java-server:
+    build:
+      context: ./apps/server
+      dockerfile: Dockerfile
+    container_name: minecraft-java-server
+    restart: unless-stopped
+    ports:
+      - "25565:25565"
+      - "24454:24454/udp"
+      - "25575:25575"
+      - "8100:8100"
+    volumes:
+      # existing folders
+      - /data/minecraft/crash-reports:/minecraft/crash-reports
+      - /data/minecraft/logs:/minecraft/logs
+      - /data/minecraft/world:/minecraft/world
+      # custom config folder
+      - /data/minecraft/settings:/minecraft/settings
+      # cache folders for downloaded contents so we dont have to download them again
+      - /data/minecraft/cache:/minecraft/cache
+      - /data/minecraft/.fabric:/minecraft/.fabric
+      - /data/minecraft/libraries:/minecraft/libraries
+      - /data/minecraft/versions:/minecraft/versions
+      - /data/minecraft/bluemap:/minecraft/bluemap
+    environment:
+      - TZ=Europe/Paris
+    stdin_open: true
+    tty: true
+
+  minecraft-http-server:
+    build:
+      context: ./apps/http
+      dockerfile: Dockerfile
+    container_name: minecraft-http-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - NODE_ENV=production
+      - RCON_HOST=minecraft-server
+      - RCON_PORT=25575
+      - RCON_PASSWORD=${SERVICE_RCON_PASSWORD}
+      - RCON_TIMEOUT=5000
+      - AUTH_ENABLED=true
+      - API_KEY=${SERVICE_API_KEY}
+      - CORS_ORIGIN=*
+      - CORS_CREDENTIALS=false
+    depends_on:
+      - minecraft-java-server

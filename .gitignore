@@ -1,0 +1,39 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+.cache/
+
+# Build artifacts
+dist/
+build/
+*.jar.bak
+
+# Data directories (mounted from host)
+/data/
+
+# Node modules (if any Node.js tools are added)
+node_modules/

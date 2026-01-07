@@ -1,0 +1,32 @@
+# Server generated files
+world/
+logs/
+crash-reports/
+
+# Configuration files (mounted from host)
+ops.json
+whitelist.json
+banned-ips.json
+banned-players.json
+
+# files that can be downloaded each times server starts
+/fabric
+/libraries
+/versions
+/bluemap
+/cache
+
+# User cache
+usercache.json
+
+# Backup files
+*.backup
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log

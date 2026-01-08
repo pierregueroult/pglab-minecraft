@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /minecraft
 
-RUN apk add --no-cache bash dos2unix
+RUN apk add --no-cache bash dos2unix netcat-openbsd
 
 # copy root files
 COPY server.jar .

@@ -12,6 +12,8 @@ RUN npm run build
 
 FROM node:20-alpine
 
+RUN apk add --no-cache wget
+
 WORKDIR /app
 
 COPY --from=builder /app/dist ./dist

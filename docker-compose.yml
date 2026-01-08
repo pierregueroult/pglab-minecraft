@@ -26,7 +26,14 @@ services:
     environment:
       - TZ=Europe/Paris
     stdin_open: true
+    user: "0:0"
     tty: true
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 25565 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
 
   minecraft-http-server:
     build:
@@ -49,4 +56,15 @@ services:
       - CORS_ORIGIN=*
       - CORS_CREDENTIALS=false
     depends_on:
-      - minecraft-java-server
+      minecraft-java-server:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

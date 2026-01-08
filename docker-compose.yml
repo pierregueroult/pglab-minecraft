@@ -47,7 +47,7 @@ services:
       - PORT=3000
       - HOST=0.0.0.0
       - NODE_ENV=production
-      - RCON_HOST=minecraft-server
+      - RCON_HOST=minecraft.pierregueroult.dev
       - RCON_PORT=25575
       - RCON_PASSWORD=${SERVICE_RCON_PASSWORD}
       - RCON_TIMEOUT=5000
